@@ -38,6 +38,7 @@ app.get('/getall',(req,res)=>{
 })
 
 app.get('/getfilter',(req,res)=>{
+    
     let sql =`select * from passenger where Name like '%${req.query.inputName}%'`   
     
     if(req.query.inputAgeMax){
@@ -47,16 +48,15 @@ app.get('/getfilter',(req,res)=>{
         sql+=` and Age >= ${req.query.inputAgeMin}` 
     }
     if(req.query.inputGender){
-        sql+=` and Sex ='${req.query.inputGender}'`
+        sql+=` and Sex = '${req.query.inputGender}'`
     }
     if(req.query.inputSurvived){
-        sql+=` and Survived =${req.query.inputSurvived}`
+        sql+=` and Survived = ${req.query.inputSurvived}`
     }
     if(req.query.inputClass){
         sql+=` and Pclass = ${req.query.inputClass}`
     }
 
-    
     try {
         db.query(sql,(err,result)=>{
             if (err) throw err
